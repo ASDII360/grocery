@@ -9,10 +9,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up JDK 17
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '17'
@@ -20,12 +20,18 @@ jobs:
       - name: Install Cordova CLI
         run: npm install -g cordova
 
-      - name: Create Cordova Project
+      - name: Create Cordova Project & Add Icon
         run: |
           cordova create myapp com.monthly.rec MonthlyRec
           cd myapp
           cordova platform add android
           cp ../index.html www/index.html
+          
+          # Set up icon resource folders and copy icon
+          mkdir -p resources/android
+          if [ -f ../icon.png ]; then
+            cp ../icon.png resources/android/icon.png
+          fi
 
       - name: Build Debug APK
         run: |
