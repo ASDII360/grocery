@@ -20,19 +20,19 @@ jobs:
       - name: Install Cordova CLI
         run: npm install -g cordova
 
-      - name: Create Cordova Project & Add Icon
+      - name: Create Cordova Project & Configure Icon
         run: |
           cordova create myapp com.monthly.rec MonthlyRec
-          
-          # Copy your specific HTML file into the cordova www folder as index.html
           cp "Grocery APP.html" myapp/www/index.html
           
-          # Set up icon resource folders and copy icon
           cd myapp
           cordova platform add android
-          mkdir -p resources/android
+          
+          # Place custom app icon into Android drawable resources so it compiles correctly
           if [ -f ../icon.png ]; then
-            cp ../icon.png resources/android/icon.png
+            mkdir -p platforms/android/app/src/main/res/mipmap-xxxhdpi
+            cp ../icon.png platforms/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png
+            cp ../icon.png platforms/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png
           fi
 
       - name: Build Debug APK
