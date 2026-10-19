@@ -23,11 +23,13 @@ jobs:
       - name: Create Cordova Project & Add Icon
         run: |
           cordova create myapp com.monthly.rec MonthlyRec
+          
+          # Copy files from the root workspace into the cordova www folder
+          cp index.html myapp/www/index.html
+          
+          # Set up icon resource folders and copy icon if it exists
           cd myapp
           cordova platform add android
-          cp ../index.html www/index.html
-          
-          # Set up icon resource folders and copy icon
           mkdir -p resources/android
           if [ -f ../icon.png ]; then
             cp ../icon.png resources/android/icon.png
