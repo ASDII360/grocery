@@ -24,10 +24,10 @@ jobs:
         run: |
           cordova create myapp com.monthly.rec MonthlyRec
           
-          # Copy files from the root workspace into the cordova www folder
-          cp index.html myapp/www/index.html
+          # Copy your specific HTML file into the cordova www folder as index.html
+          cp "Grocery APP.html" myapp/www/index.html
           
-          # Set up icon resource folders and copy icon if it exists
+          # Set up icon resource folders and copy icon
           cd myapp
           cordova platform add android
           mkdir -p resources/android
